@@ -1,0 +1,174 @@
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bio Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: #000;
+        }
+
+        /* Video background */
+        video.bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Bio container */
+        .bio-container {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            display: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Profile picture styling */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* Adjusted icon spacing and glow effect */
+        .bio-links a {
+            display: inline-block;
+            margin: 10px;
+            font-size: 2.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        .bio-links a:hover {
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+
+        .bio-links i {
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .bio-links a:hover i {
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+        }
+
+        /* "Click to Enter" text */
+        .enter-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            z-index: 10;
+        }
+
+        /* Apply blur effect only to the background */
+        .blurred {
+            filter: blur(5px);
+        }
+
+        .blurred-background {
+            filter: blur(5px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video background -->
+    <video class="bg-video" loop muted>
+        <source src="videoplayback.mp4" type="video/mp4">
+        <source src="videoplayback.webm" type="video/webm">
+        <source src="videoplayback.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- "Click to Enter" Screen -->
+    <div class="enter-screen">
+        <p>click to enter...</p>
+    </div>
+
+    <!-- Bio container -->
+    <div class="bio-container">
+        <!-- Profile Picture -->
+        <img src="pfp.png" alt="Profile Picture" class="profile-pic">
+        
+        <h1>poopietum</h1>
+        <div class="bio-links">
+            <a href="https://www.instagram.com/decxda" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/tumsploit" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.youtube.com/@theultimatemena" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <!-- Music Auto Play -->
+        <audio id="bg-music" autoplay loop>
+            <source src="sigmamusic.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        // Select elements
+        const enterScreen = document.querySelector('.enter-screen');
+        const bioContainer = document.querySelector('.bio-container');
+        const bgVideo = document.querySelector('.bg-video');
+        const bgMusic = document.getElementById('bg-music');
+
+        // Pause video initially
+        bgVideo.pause();
+
+        // Add event listener to start video and music on click
+        enterScreen.addEventListener('click', function() {
+            enterScreen.style.display = 'none'; // Hide click to enter screen
+            bioContainer.style.display = 'block'; // Show bio content
+            bgVideo.play(); // Start playing video on click
+            bioContainer.classList.remove('blurred'); // Remove blur from bio content
+            bgMusic.play(); // Start playing music on click
+            document.querySelector('.blurred-background').style.display = 'none'; // Hide blurred background
+        });
+
+        // Add blur effect on video and bio container initially, but not the text
+        bgVideo.classList.add('blurred');
+        bioContainer.classList.add('blurred');
+        
+        let blurBackground = document.createElement('div');
+        blurBackground.classList.add('blurred-background');
+        document.body.appendChild(blurBackground);
+    </script>
+</body>
+</html>
